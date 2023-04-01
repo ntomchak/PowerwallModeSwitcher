@@ -20,7 +20,6 @@ now = datetime.datetime.now()
 
 
 # LOAD CONFIGURATION ---------------------------
-# Credentials for your Powerwall - Customer Login Data
 dir_name = os.path.dirname(__file__)
 config_file_name = os.path.join(dir_name, "solarforecast-config.yml")
 config_file = open(config_file_name, 'r')
