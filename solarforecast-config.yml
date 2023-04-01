@@ -1,0 +1,44 @@
+auth:
+    password: "XXXXX"
+    email: "email@example.com"
+    host: "192.168.0.103"
+    timezone: "Pacific/Honolulu"
+predictions:
+    kwh_capacity: 12.4
+    sunrise_to_nine:
+        weekend:
+            # will not switch to time-based if forecasted to dip below this many percentage points above the reserve threshold
+            upper_pp_above_reserve: 4.5
+            # will switch to self-powered if below this number of percentage points above the reserve threshold
+            lower_pp_above_reserve: 1.25
+            # average kW between sunrise and 9am
+            kwh_per_hour: 0.57
+            # predicted battery use by 9am multiplied by this is used to determine whether there is enough battery to not dip below upper_pp_above_reserve
+            demand_multiplier: 1.02
+        weekday:
+            # will not switch to time-based if forecasted to dip below this many percentage points above the reserve threshold
+            upper_pp_above_reserve: 2.5
+            # will switch to self-powered if below this number of percentage points above the reserve threshold
+            lower_pp_above_reserve: 0.35
+            # average kW between sunrise and 9am
+            kwh_per_hour: 0.32
+            # predicted battery use by 9am multiplied by this is used to determine whether there is enough battery to not dip below upper_pp_above_reserve
+            demand_multiplier: 1.0
+    nine_to_four:
+        weekend:
+            kwh_per_hour: 0.72
+            upper_demand_multiplier: 1.0
+            lower_demand_multiplier: 0.8
+        weekday:
+            kwh_per_hour: 0.6
+            upper_demand_multiplier: 0.95
+            lower_demand_multiplier: 0.75
+files:
+    # file to store today's forecasted watt-hours after 9 am
+    nine_to_four_energy_file: "/path/to/file/nine-to-four-energy-today.txt"
+    logs_folder: "/path/to/directory/solarforecast/"
+commands:
+    # switch to time-based control
+    time_command: "python3 /path/to/file/set-mode.py --set time"
+    # switch to self-powered
+    self_command: "python3 /path/to/file/set-mode.py --set self"
